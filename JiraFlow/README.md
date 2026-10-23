@@ -138,7 +138,7 @@ Esse arquivo está no `.gitignore`. Verifique antes do primeiro commit que ele *
 
 | Chave | Tipo | Padrão | Descrição |
 |---|---|---|---|
-| `Directory` | texto | `logs` | Pasta dos logs. Relativa à raiz do projeto, ou caminho absoluto. Criada se não existir. |
+| `Directory` | texto | `logs` | Pasta dos logs. Relativa à pasta do executável, ou caminho absoluto (por exemplo `D:\\Logs\\JiraFlow` no JSON). Criada se não existir. |
 | `MinLevel` | texto | `INFO` | Nível mínimo registrado: `INFO`, `WARN` ou `ERRO`. Valor inválido cai em `INFO`. |
 | `MaxFileSizeMb` | número | `5` | Tamanho a partir do qual o arquivo ativo é rotacionado. |
 | `RetainedFiles` | número | `10` | Quantidade de arquivos rotacionados mantidos. Os mais antigos são apagados. |
@@ -185,7 +185,7 @@ Como o executável não abre janela, **não aparece saída no terminal**. Acompa
 dotnet publish -c Release -o publish
 ```
 
-Copie para a pasta `publish` o `appsettings.local.json` (o build já o copia, se existir) e execute `JiraFlow.exe`. Sem `.csproj` por perto, a pasta `logs` é criada ao lado do executável.
+Copie para a pasta `publish` o `appsettings.local.json` (o build já o copia, se existir) e execute `JiraFlow.exe`. A pasta `logs` é criada ao lado do executável, salvo se `Logging:Directory` apontar para outro local.
 
 ---
 
@@ -205,7 +205,7 @@ Se a tarefa rodar com outra conta, ou como `SYSTEM`, a variável precisa existir
 
 ## Logs
 
-- **Local:** pasta `logs` na raiz do projeto (ou ao lado do executável, quando publicado).
+- **Local:** pasta `logs` **ao lado do executável** (em desenvolvimento, `bin\Debug\net8.0\logs`). Pode ser alterado em `Logging:Directory`, com caminho relativo ou absoluto.
 - **Formato:** `data hora.milissegundos [NÍVEL] mensagem`
 
 ```

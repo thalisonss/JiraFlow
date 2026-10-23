@@ -5,7 +5,7 @@ namespace JiraFlow.Infrastructure.Configuration;
 /// </summary>
 public sealed class LoggingOptions
 {
-    /// <summary>Pasta dos logs, relativa à raiz do projeto (ou caminho absoluto).</summary>
+    /// <summary>Pasta dos logs, relativa à pasta do executável (ou caminho absoluto).</summary>
     public string Directory { get; set; } = "logs";
 
     /// <summary>INFO, WARN ou ERRO. Valor inválido cai em INFO.</summary>

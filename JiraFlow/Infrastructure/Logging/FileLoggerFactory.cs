@@ -11,24 +11,12 @@ public static class FileLoggerFactory
             ? nivel
             : NivelLog.INFO;
 
-        // Path.Combine: se Directory for um caminho absoluto, ele prevalece sobre a raiz do projeto.
+        // Por padrão a pasta fica ao lado do executável. Path.Combine: se Directory for um
+        // caminho absoluto (ex.: D:\Logs\JiraFlow), ele prevalece e a pasta base é ignorada.
         return new FileLogger(
-            Path.Combine(LocalizarRaizDoProjeto(), opcoes.Directory),
+            Path.Combine(AppContext.BaseDirectory, opcoes.Directory),
             tamanhoMaximoBytes: opcoes.MaxFileSizeMb * 1024 * 1024,
             arquivosRetidos: opcoes.RetainedFiles,
             nivelMinimo);
-    }
-
-    // Em desenvolvimento o .exe fica em bin\Debug\net8.0; subimos as pastas até achar o .csproj (raiz do projeto).
-    // Publicado sem .csproj, usa a pasta do próprio executável.
-    private static string LocalizarRaizDoProjeto()
-    {
-        for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir != null; dir = dir.Parent)
-        {
-            if (dir.GetFiles("*.csproj").Length > 0)
-                return dir.FullName;
-        }
-
-        return AppContext.BaseDirectory;
     }
 }
